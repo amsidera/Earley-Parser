@@ -1,0 +1,33 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//      Cs585 - Natural Language Processing
+//		Homework 2
+//      Code Improvements
+//
+//      Ana Martinez Sidera A20410762 
+//      Jose Luis Martin Casarrubios A20410665   
+////////////////////////////////////////////////////////////////////////////////
+
+Modify the code to output the parse tree(s) computed, rather than just the dynamic programming table and whether 
+the sentence parses. You will need to add appropriate back-links into the DP table and write a routine to extract
+trees from the table. Show the tree(s) by printing the input sentence in a bracketed form, for example:
+S[ NP[ Det[ the ] N[ man ] ] VP[ V[ saw ] NP[ PN[ her ] ] ] ]
+
+Code Improvements Implemented:
+Grammar.java:
+	-addPointer: Modified to store the back-links as the children of the productions which make progress from their current position.
+		-params: HashMap back, Production p, Production r
+		
+	-attach: Modified to add a back-links whenever a production is identified with a progress in the position.
+	-scanAdd: Modified to return the production with the parse structure.
+		-params: Vector col, Production b, Vector backLinks
+		-return: True or false
+
+Production.java
+	-probabilityAcum: Modified to store the probability of the tree	
+	-getProbability: Modified to get the probability of the tree
+	-recursivePrint: Modified to print the productions by the child productions that are linked to it.
+
+The system works with probabilities so we can not talk about reasonable, just more or less likely.
+One of the ideas to improve the system is, use a database with phrases and use our parser. 
+With this we can observe, analysis and improve which is the most reasonable parser.

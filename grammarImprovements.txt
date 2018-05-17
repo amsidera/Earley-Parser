@@ -1,0 +1,120 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//      Cs585 - Natural Language Processing
+//		Homework 2
+//      Grammar Improvements
+//
+//      Ana Martinez Sidera A20410762 
+//      Jose Luis Martin Casarrubios A20410665   
+////////////////////////////////////////////////////////////////////////////////
+
+Look at the grammar. What changes to the grammar alone could improve the parsing (in particular, consider 
+coordinated conjunctions)? Modify the grammar somewhat and evaluate the improvements. What new sentences 
+may be parsed?
+
+1. The improvements explained in evaluation.txt are as follows
+	1. Preposition
+		0	nbar	fname
+	2. Infinitives
+		0	vp	to
+		0	s	vp vp
+	3. Have / be
+		0	fv 		have
+		0	fv		be
+	4. Start with a VP
+		0	s	vp np
+	5. Conjunctions
+		0	s	s fcnj s
+		0	np	np fcnj np
+		0	vp	vp fcnj vp
+		0	fcnj	and
+		0	fcnj	so
+		0	fcnj	but
+		0	fcnj	or
+
+
+Moreover, addition of more terminals in each category could improve the wide range of sentences that could be parsed.
+What new sentences may be parsed?
+Example 1: she was eating watermelons in the planet
+                        S                                                                                                         
+      __________________|_____________________                                                    
+     NP                                       VP                                                
+     |                                        |                  
+     |                                       VBAR                                                         
+     |                      __________________|___________                                                  
+     |                   VBAR                            NP                                             
+     |                    |                              |                                              
+     |                    |                             NBAR                                              
+     |                    |                ______________|____                                            
+     |                    |               |               NBAR-MODS                               
+     |                    |               |                  |                           
+     |                    |               |                  PP                         
+     |                    |               |           ________|____                      
+     |                    |               |          FP            NP                      
+     |                 ___|__             |           |        ____|______          
+   FPRON             FAUX   FV            FN          |       FD        NBAR        
+     |                |      |            |           |       |          |         
+     |                |      |            |           |       |        FNAME
+     |                |      |            |           |       |          |
+    she              was  eating     watermelons      in     the       planet  	
+
+	
+Example 2: I cook and eat
+            S               
+     _______|________             
+     NP             VP
+     |         ____ |_____
+     |        VP  FCNJ   VP          
+     |        |     |     |
+     |       VBAR   |    VBAR
+     |        |     |     |   
+   FPRON      FV    |    FV 
+     |        |     |     |   
+     i       cook  and   eat 
+
+	 
+Example 3: he was eating watermelons so i was driving
+                             S                                                      
+                 ___________ |_______________________________                                                       
+                |                              |             |
+                S                            FCNJ            S            	
+        ________|________                      |             |
+       NP               VP                     |             | 
+       |                 |                     |             |  
+       |                VBAR                   |         ____|_____              
+       |                 |                     |        NP        VP              
+       |                 |                     |        |          |        
+       |           ______|_______              |        |          |          
+       |          VBAR          NP             |        |          |        
+       |           |            |              |        |          |        
+       |           |           NBAR            |        |         VBAR        
+       |         __|___         |              |        |      ____|____           
+     FPRON     FAUX   FV        FN             |      FPRON  FAUX      FV        
+       |        |      |        |              |        |      |        |            
+       he      was  eating  watermelons       so        i     was     driving
+
+	   
+Example 4: stop the jetcar
+         S             
+     ____|_____              
+    VP          NP           
+    |        ___|____        
+   VBAR     FD      NBAR
+    |       |        |
+    FV      |        FN  
+    |       |        |    
+   stop    the     jetcar
+
+   
+Example 5: i will have to drive
+                S                 			
+      __________|___________                  
+     NP                    VP              
+     |           __________|________         
+   FPRON        VBAR           VBAR-MODS
+     |	     ____|_____       _____|_____
+     |	   FAUX       FV     FP         FV
+     |      |         |      |          |
+     |      |	      |      |          |
+     i     will      have    to       drive
+

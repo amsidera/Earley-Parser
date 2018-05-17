@@ -1,0 +1,177 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//      Cs585 - Natural Language Processing
+//		Homework 2
+//      Evaluation
+//
+//      Ana Martinez Sidera A20410762 
+//      Jose Luis Martin Casarrubios A20410665   
+////////////////////////////////////////////////////////////////////////////////
+
+1. Evaluate the parser in its current form:
+1.1 What sorts of sentences can it parse?
+
+Example 1: she steals a jetcar in chicago
+                           S                                                                                    
+     ______________________|_______                                     
+     NP                           VP                                 
+     |                   _________|________________           
+     |                 VBAR                      VBAR-MODS         
+     |                   |                           |
+     |                   |                           |         
+     |            _______|_______                    PP          
+     |           |               NP                   |         
+     |           |         ______|____                |          
+     |           |         FD        NBAR          ___|_____         
+     |           |         |           |         FP 	   NP           
+     |           |         |          FN         |         |
+     |           |         |           |         |       FNAME
+   FPRON         FV        |           |         |         |    
+     |           |         |           |         |         |    
+    she        steals      a         jetcar      in     chicago
+
+	Parser in this sentence:    
+	S[NP[...]VP[...]]
+
+	NP[FPRON]
+	NP[FNAME]
+	NP[FD[]NBAR[...]]
+	NBAR[FN[]]
+
+	VBAR[FV[]NP[...]]
+	VBAR-MODS[PP[...]]
+	PP[FP[]NP[...]]
+
+
+Example 2: does he live in chicago
+                    S                                                 
+	________________|________                
+  FAUX      NP              VP            
+   |        |         ______|____           
+   |        |       VBAR      VBAR-MODS        
+   |        |         |         |          
+   |        |         |         PP        
+   |        |         |     ____|_____     
+   |      FPRON      FV   FP         NP 
+   |        |         |    |          |            
+   |        |         |    |          | 
+   |	    |	      |	   |	    FNAME
+   |        |         |    |          |   
+  does      he      live   in       chicago
+
+	Parser in this sentence:
+	S[FAUX[]NP[...]VP[...]]
+	VBAR[FV[]]
+
+Example 3: john will give aliens to banzai
+                  S                                                                                                      
+      ____________|______________                                              
+     NP                         VP                                          
+     |                ___________|___________
+     |              VBAR                    NBAR         
+     |          _____|______                 |          
+     |        FAUX        FV                 |
+     |         |          |          ________|_______
+     |         |          |        FN            NBAR-MODS      
+     |         |          |         |               |           
+     |         |          |         |              PP         
+     |         |          |         |           ____|____             
+     |         |          |         |          FP       NP            
+     |         |          |         |          |         |
+   FNAME       |          |         |          |        FNAME   
+     |         |          |         |          |         |
+    john      will      give     aliens       to      banzai  
+	
+	Parser in this sentence:
+	VBAR[FAUX[]FV[]]
+	NBAR[FN[]NBAR-MODS[...]]
+	NBAR-MODS[PP]
+
+Example 4: he was eating watermelons in chicago
+                S                                                                                               
+      __________|__________                                        
+     NP                    VP                                    
+     |                     |          
+     |                    VBAR                                            
+     |               ______|____________________                             
+     |             VBAR                        NP                          
+     |              |                          |                              
+     |              |                         NBAR                           
+     |              |                 _________|________                          
+     |              |                FN              NBAR-MODS                  
+     |              |                |                  |                         
+     |           ___|_____           |                  PP                    
+     |        FAUX      FV           |             _____|_____         
+   FPRON       |        |            |           FP          NP   
+     |         |        |            |           |           |
+     |	       |        |            |           |         FNAME  
+     |         |        |            |           |           |
+     he      was     eating     watermelons      in        chicago
+
+	  
+1.2 What types of sentences will it fail to parse?
+
+	Failure 1: he was eating watermelons in the earth
+		-Reason: Grammar did not include a determiner as a part of prepositional phrase. Only pp recognizable is pp -> fp np.
+		-Example:
+			in	 the	 jetcar
+			------np--------
+			fp	  ----np---
+			fp	 fd      nbar //Fail! The grammar doesn't have nbar -> fname
+			fp	 fd		 fname	 
+
+	Failure 2: she drives to steal the jetcar
+		- Reason: infinitives are not recognized by the grammar.
+		- Example:
+			to steal
+			 -vbar- // Fail! The grammar doesn't have vbar -> fp fv
+			fp   fv
+
+
+	Failure 3: i will have the jetcar
+		- Reason: have/be words not included in grammar
+		- Example: 
+			will have
+			faux  fv //Fail! Not define fv -> have
+
+
+	Failure 4: steal the jetcar
+		-Reason: There are no sentences that start with a verb in the given grammar.
+		-Example: 
+			steal the jetcar
+			------s--------
+			vp     ---np--- //Fail! With our grammar a sentence can't start with vp. s -> vp np
+
+
+	Failure 5: I steal and live 
+		-Reason: conjuctions not included in grammar
+		-Example: 
+			steal and live 
+			vp    fcnj  vp // Fail! There are any conjunction.    
+
+
+1.3 What improvements to the grammar or parser are required to properly parse common failed sentences?
+
+	1. Add name in the nbar so we can have a preposition with a name.
+		PP -> FP NP
+		NP -> NBAR
+		NBAR -> FNAME //Insert
+
+	2. Insert the infinitives in the verbs
+		FV -> to
+		VP -> FV S
+		S -> VP VP
+	    Example: I want to swim 	
+
+	3. Add the verbs have and be, verbs very common in English
+		FV -> have
+		FV -> be
+
+	4. Insert sentence that start with a verb.
+		S -> VP NP
+
+	5. Insert the most important conjunctions, also add the combinations as sentence conjunctions sentence....
+		S -> S FCNJ S
+		NP -> NP FCNJ NP
+		VP -> VP FCNJ VP 
+		FCNJ -> AND, BUT, OR, SO

@@ -1,0 +1,88 @@
+1	ROOT	s
+0.3	s	np vp
+0.05	s	vp vp
+0.1	s	vp np
+0.2	s	faux np vp
+0.1	s	np fis np
+0.25	s	s fcnj s
+0.1	np	fname
+0.1	np	fname fname
+0.1	np	fpron
+0.2	np	nbar
+0.2	np	fd nbar
+0.3	np	np fcnj np
+0.4	nbar	fn
+0.6	nbar	fn nbar-mods
+0.8	nbar-mods	pp
+0.2	nbar-mods	pp nbar-mods
+0.5	vp	vbar
+0.2	vp	vbar vbar-mods
+0.25	vp	vp fcnj vp
+0.05	vp	fv s
+0.15	vbar	fv
+0.18	vbar	faux fv
+0.5	vbar	vbar np
+0.02	vbar	vbar np np
+0.15	vbar	vbar np pp
+0.9	vbar-mods	pp
+0.1	vbar-mods	pp vbar-mods
+1	pp	fp np
+1	fis	is
+0.1	fname	buckaroo
+0.1	fname	banzai
+0.1	fname	john
+0.1	fname	whorfin
+0.1	fname	planet
+0.1	fname	earth
+0.2	fname	chicago
+0.2	fname	ten
+0.2	fn	jetcar
+0.2	fn	alien 
+0.2	fn	aliens
+0.2	fn	watermelon
+0.2	fn	watermelons
+0.1	fpron	i
+0.1	fpron	we
+0.1	fpron	us
+0.1	fpron	you
+0.2	fpron	he
+0.2	fpron	she
+0.1	fpron	it
+0.1	fpron	they
+0.3	fd	a
+0.4	fd	the
+0.15	fd	this
+0.15	fd	these
+0.05	fv	drive 
+0.05	fv	drives
+0.05	fv	driven
+0.04	fv	driving
+0.04	fv	eating
+0.05	fv	eat
+0.05	fv	stop
+0.1	fv	have
+0.05	fv	cook
+0.05	fv	give
+0.05	fv	like
+0.04	fv	living  
+0.05	fv	gives 
+0.05	fv	live  
+0.05	fv	lives 
+0.05	fv	steal 
+0.05	fv	steals
+0.03	fv	to
+0.1	faux	do
+0.1	faux	did
+0.1	faux	does
+0.3	faux	will
+0.2	faux	was
+0.2	faux	is
+0.25	fp	in
+0.25	fp	on
+0.25	fp	to
+0.25	fp	from
+0.2	fcnj	and
+0.2	fcnj	so
+0.2	fcnj	but
+0.2	fcnj	or
+0.2	fcnj	so
